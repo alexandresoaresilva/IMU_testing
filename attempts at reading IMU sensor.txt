@@ -1,0 +1,11 @@
+while(1)
+x = IMU.readRegister(a,25)
+delay(0.1)
+end
+
+
+
+y = IMU.readRegister(a,uint8(bin2dec('00011011')))
+z = IMU.readRegister(a,uint8(bin2dec('00011101')))
+
+bin2dec(00011001)

@@ -26,11 +26,11 @@ SFE_LSM9DS1 library. It'll demo the following:
 Hardware setup: This library supports communicating with the
 LSM9DS1 over either I2C or SPI. This example demonstrates how
 to use I2C. The pin-out is as follows:
-	LSM9DS1 --------- Arduino
-	 SCL ---------- SCL (A5 on older 'Duinos')
-	 SDA ---------- SDA (A4 on older 'Duinos')
-	 VDD ------------- 3.3V
-	 GND ------------- GND
+  LSM9DS1 --------- Arduino
+   SCL ---------- SCL (A5 on older 'Duinos')
+   SDA ---------- SDA (A4 on older 'Duinos')
+   VDD ------------- 3.3V
+   GND ------------- GND
 (CSG, CSXM, SDOG, and SDOXM should all be pulled high.
 Jumpers on the breakout board will do this for you.)
 
@@ -40,9 +40,9 @@ off the 3.3V rail! I2C pins are open-drain, so you'll be
 directly to the Arduino.
 
 Development environment specifics:
-	IDE: Arduino 1.6.3
-	Hardware Platform: SparkFun Redboard
-	LSM9DS1 Breakout Version: 1.0
+  IDE: Arduino 1.6.3
+  Hardware Platform: SparkFun Redboard
+  LSM9DS1 Breakout Version: 1.0
 
 This code is beerware. If you see me (or any other SparkFun
 employee) at the local, and you've found our code helpful,
@@ -68,8 +68,8 @@ LSM9DS1 imu;
 // Example I2C Setup //
 ///////////////////////
 // SDO_XM and SDO_G are both pulled high, so our addresses are:
-#define LSM9DS1_M	0x1E // Would be 0x1C if SDO_M is LOW
-#define LSM9DS1_AG	0x6B // Would be 0x6A if SDO_AG is LOW
+#define LSM9DS1_M 0x1E // Would be 0x1C if SDO_M is LOW
+#define LSM9DS1_AG  0x6B // Would be 0x6A if SDO_AG is LOW
 #define GRAVITY_ACCEL 9.7928 // in m/s^2
 
 ////////////////////////////
@@ -121,7 +121,7 @@ void setup()
       ;
   }
   imu.calibrateMag();
-  imu.calibrate();
+  //imu.calibrate();
 }
 
 void loop()
@@ -268,59 +268,78 @@ void printAttitude(float ax, float ay, float az, float mx, float my, float mz)
   // float roll = atan2(ay, az);
   // float pitch = atan2(-ax, sqrt(ay * ay + az * az));
 
-	float heading = atan2(my,mx);
-
-	if (mx > -0.0001 && mx < 0.0001) //if  mx == 0 (sorta)
-	{
-	    if ( my > 0 )
-	        heading = PI_OVER_2;
-	    else if ( my < 0 )
-	        heading = THREE_PI_OVER_2;
-		if ( my > 0 )
-	}
-	// else
-	// 	float heading = atan2(my,mx);
-	// else if ( mx >= 0.0001 ||  mx <= -0.0001)
-	// {
-	// 	if ( my > 0 )
-	// 		heading = atan2(my,mx);
-	// 	else
-	// 		heading = 2*PI + atan2(my,mx);
-	// }
+//  float absoluteHeading = fabs(heading);
+  float heading = atan2(my,mx);
+  if (mx > -0.001 && mx < 0.001) //if  mx == 0 (sorta)
+  {
+      if ( my > 0 )
+          heading = PI_OVER_2;
+      else if ( my < 0 )
+          heading = THREE_PI_OVER_2;
+  }
 
 
-
-	// if (mx > -0.0001 && mx < 0.0001) //if  mx == 0 (sorta)
-	// {
-	// 	if ( my > 0 )
-	// 		heading = PI_OVER_2;
-	// 	else if ( my < 0 )
-	// 		heading = THREE_PI_OVER_2;
-	// }
-	// else if ( mx >= 0.0001 ||  mx <= -0.0001)
-	// 		heading = atan2(my,mx);
-
- // if (mx == 0)
- //heading =  THREE_PI_OVER_2 - atan2(my,mx);
- //   heading = (my < 0) ? PI : 0;
- // else if ( mx > 0 )
- //
- //   heading = atan2(my,mx);
- // PI_OVER_2   (PI >> 2) //90 degrees
- // #define THREE_PI_OVER_2   3*PI_OVER_2 //270 degrees
-
- heading -= DECLINATION * PI / 180;
+  // if ( absoluteHeading < PI_OVER_2 )
+  // {
+  //  if ( heading < 0 )
+  //    heading -= PI;
+  //  //else
+  //    //heading = THREE_PI_OVER_2;
+  // }
+  // else
+  // {
+  //  if ( heading < 0 )
+  //    heading += PI;
+  //  else
+  //    heading = THREE_PI_OVER_2;
+  // }
 
 
- if ( heading < 0 )
- 	 heading += 2*PI;
+//  float mx_over_my;
+
+  // if (mx > -0.0001 && mx < 0.0001) //if  mx == 0 (sorta)
+  // {
+  //     if ( my > 0 )
+  //         heading = PI_OVER_2;
+  //     else if ( my < 0 )
+  //         heading = THREE_PI_OVER_2;
+  // }
+  // else
+  //  heading = atan2(my,mx);
+
+
+
+  //following PDF
+  // if (my > -0.0001 && my < 0.0001) //if  mx == 0 (sorta)
+  // {
+  //     if ( mx > 0 )
+  //         heading = 0;
+  //     else if ( mx < 0 )
+  //         heading = PI;
+  // }
+  // else if (my <= -0.0001 || my >= 0.0001 )
+  // {
+  //  mx_over_my = mx/my;
+  //  if (my <  0 )
+  //    heading = THREE_PI_OVER_2 - atan(mx_over_my);
+  //  else if ( my > 0 )
+  //    heading =  PI_OVER_2 - atan(mx_over_my);
+  // }
+  // THREE_PI_OVER_2;
+  // PI_OVER_2;
+
+  //heading -= DECLINATION * PI / 180;
+
+
+  //  if ( heading < 0 )
+  //     heading += 2*PI;
 
  // if (heading > PI) heading -= (2 * PI);
  // else if (heading < -PI) heading += (2 * PI);
  // else if (heading < 0) heading += 2 * PI;
 
-  //Convert everything from radians to degrees:
-  heading *= 180.0 / PI;
+    //Convert everything from radians to degrees:
+    heading *= 180.0 / PI;
   // pitch *= 180.0 / PI;
   // roll  *= 180.0 / PI;
 
@@ -330,3 +349,4 @@ void printAttitude(float ax, float ay, float az, float mx, float my, float mz)
   // Serial.println(roll, 2);
   Serial.print("Heading: "); Serial.println(heading, 2);
 }
+

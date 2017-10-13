@@ -1,0 +1,31 @@
+Accelerometers:
+1. sensitive to difference between the linear acceleration of the sensor 
+and the local graviational field
+
+2. deflection of proof mass is measured from the change in capacitance 
+between the fingers of the proof mass and the sensing plates
+(the voltage changes are directly proportional to the distance changes between the "plates"of the mems
+
+3. Use a coordinate system aligned with the camera body
+	x-axis aligned along the top of the longest side of the frontal glass, 
+			centered mid-way between the frontal lenses' two sides
+	y-axis aligned along the top of the camera, positive y pointing towards 
+			the foldable back end (usb connection of the camera's body), 
+			with origin mid-way between the frontal lenses' two sides
+	z-axis aligned (tangent)with the camera's frontal glass, with origin 
+			with origin mid-way between the frontal lenses' two sides,
+			positive z pointing from bottom to top of the camera
+
+The Kalman Filter
+
+an application of the more general concepts of Markov Chains and Bayesian Inference, 
+
+individually, the gyro is the best and cleanest single source of sensor data you’re going to get for continuous position measurement.
+
+
+
+ The typical two-axis accelerometer gives users a direction of gravity in an aircraft, smartphone, car or other device. In comparison, a gyroscope is intended to determine an angular position based on the principle of rigidity of space. The applications of each device vary quite drastically despite their similar purpose. A gyroscope, for example, is used in navigation on unmanned aerial vehicles, compasses and large boats, ultimately assisting with stability in navigation. Accelerometers are equally widespread in use and can be found in engineering, machinery, hardware monitoring, building and structural monitoring, navigation, transport and even consumer electronics.
+
+1. test if all of them give the same readings for the accelerometer, gyroscope, and compass
+
+2. check arduino clock, baud rate

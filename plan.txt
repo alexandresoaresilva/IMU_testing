@@ -1,0 +1,38 @@
+1. Get frequency
+2. Get period
+3. poll acceleration data from period
+4. 
+
+getting position from IMU:
+http://stanford.edu/class/ee267/Spring2016/report_zhu_shi.pdf
+https://www.youtube.com/watch?v=C7JQ7Rpwn2k
+
+
+http://cache.freescale.com/files/sensors/doc/app_note/AN3461.pdf?fpsp=1
+
+
+1. There's low power and normal power modes, with different polling frequencies
+2. you can change them while in operation
+3. sample rates of the accelerometer
+4. acceleration can be measured 
+
+
+unsigned long gravCompX;
+unsigned long gravCompY;
+unsigned long gravCompZ;
+
+long accel0And1[2];
+
+long vel0And1[2];
+
+long space0And1[2];
+for (int i = 0; i <50; i++)
+{
+	
+}
+(a0)*t = v0
+v1=(a1-a0)*t 
+v49=(a49-a48)*t 
+
+
+(v0-v1)*t = s0
